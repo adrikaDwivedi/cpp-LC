@@ -1,0 +1,41 @@
+7th july DP Contest
+Consider the array nums = [-3, 2, -3, 4, 2], which represents elevation changes along a hiking trail. To ensure that your energy level never falls below 1, you need to find the smallest positive starting energy level. In this example, if you start with an energy level of 5: Start at 5 Step 1: 5 + (-3) = 2 Step 2: 2 + 2 = 4 Step 3: 4 + (-3) = 1 Step 4: 1 + 4 = 5 Step 5: 5 + 2 = 7 With a starting energy level of 5, your energy never drops below 1 at any step. If the array is nums = [1, 2, 3], the minimum starting energy level is 1, as the elevation changes are all positive and your energy level will always stay above 1.
+Find the minimum positive startValue such that your energy level never drops below 1 during your journey.
+Input Format
+First line of input contains T- number of test cases. Each test case contains the N- size of nums array . The next Line contains nums.
+Constraints
+1<=T<=100, 1<=N<=100, -50<=nums[i] <=50
+Output Format
+Print single integer.
+#include <iostream>
+#include <vector>
+using namespace std;
+
+int findPivotIndex(const vector<int>& nums) {
+    int totalSum = 0, leftSum = 0;
+    
+    for (int num : nums) {
+        totalSum += num;
+    }
+    for (int i = 0; i < nums.size(); ++i) {
+        if (leftSum == totalSum - leftSum - nums[i]) {
+            return i;
+        }
+        leftSum += nums[i];
+    }
+    return -1;
+}
+int main() {
+    int T;
+    cin >> T;
+    while (T--) {
+        int N;
+        cin >> N;
+        vector<int> nums(N);
+        for (int i = 0; i < N; ++i) {
+            cin >> nums[i];
+        }
+        cout << findPivotIndex(nums) << endl;
+    }
+    return 0;
+}
